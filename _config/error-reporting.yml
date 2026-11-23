@@ -1,0 +1,12 @@
+---
+Name: atwx-error-reporting
+After: '#logging'
+---
+# Every log entry of level error or worse goes to Sentry/GlitchTip. Uncaught
+# exceptions and PHP fatals reach this logger through Silverstripe's error handler.
+SilverStripe\Core\Injector\Injector:
+  Psr\Log\LoggerInterface:
+    calls:
+      pushErrorReportingHandler: [ pushHandler, [ '%$Atwx\ErrorReporting\Handler' ] ]
+  Atwx\ErrorReporting\Handler:
+    factory: Atwx\ErrorReporting\HandlerFactory
