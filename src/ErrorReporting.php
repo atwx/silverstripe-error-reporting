@@ -111,7 +111,8 @@ class ErrorReporting
                 new EnvironmentIntegration(),
                 new FrameContextifierIntegration(),
             ],
-            'in_app_include' => [$base],
+            // everything outside vendor/ is the project's own code; an include list
+            // would override this exclusion in the SDK
             'in_app_exclude' => [$base . '/vendor'],
             'prefixes' => [$base],
             'before_send' => static function (Event $event, ?EventHint $hint) use ($filter): ?Event {
