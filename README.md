@@ -7,6 +7,8 @@ Reports the real errors of a Silverstripe site to Sentry or GlitchTip, and nothi
 - known noise is dropped (deprecations, "Allowed hosts has not been set", session warnings, …)
 - one **fingerprint per cause**: exception type, the message without numbers/ids/paths and the
   innermost frame of the project's own code, so the same bug is one issue across requests and releases
+- Silverstripe 6: exceptions of sake tasks and commands are reported too (symfony/console catches
+  them before Silverstripe's error handler sees them; a `console.error` subscriber passes them on)
 - every event is tagged with `site`, `installation` (the path in the hosting register) and
   `framework` (Silverstripe version); the release is the deployment directory name
 

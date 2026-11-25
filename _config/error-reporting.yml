@@ -10,3 +10,14 @@ SilverStripe\Core\Injector\Injector:
       pushErrorReportingHandler: [ pushHandler, [ '%$Atwx\ErrorReporting\Handler' ] ]
   Atwx\ErrorReporting\Handler:
     factory: Atwx\ErrorReporting\HandlerFactory
+---
+Name: atwx-error-reporting-sake
+Only:
+  classexists: 'SilverStripe\Cli\Sake'
+---
+# Silverstripe 6: sake (symfony/console) catches exceptions of tasks and commands
+# itself; the subscriber hands them to the logger above.
+SilverStripe\Core\Injector\Injector:
+  Symfony\Contracts\EventDispatcher\EventDispatcherInterface.sake:
+    calls:
+      addErrorReportingSubscriber: [ addSubscriber, [ '%$Atwx\ErrorReporting\ConsoleErrorSubscriber' ] ]
